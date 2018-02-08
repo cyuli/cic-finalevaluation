@@ -1,0 +1,42 @@
+.header {
+    background-color: lightblue;
+}
+
+.header-title {
+    color: white;
+}
+
+.wrapper {
+    max-width: 70%;
+    
+    border-radius: 8px;
+    height: 500px;
+}
+
+.addtask-box {
+    border: 1px solid gray; 
+    min-width: 60%;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+.box-content {
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    min-height: calc(100vh - 100px);
+}
+
+.addtask-box:focus {
+    outline: none;
+}
+
+.addtask-buttons {
+
+}
+
+.test {
+    min-width: 100%;
+    font-size: 20px;
+
+}
+
