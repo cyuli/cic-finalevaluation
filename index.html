@@ -19,18 +19,26 @@
             </div>
         </div>
         <div class="wrapper mx-auto mt-3">
-            <div class="box-content p-4">
-                <div class="row addtask-container mx-0 d-flex align-items-center justify-content-around">
-                    <form class="d-flex w-5 add-container">
-                        <input class="addtask-box" id="test" type="text" placeholder="Add task..." value="" />
+            <div class="box-content p-4 d-flex justify-content-center flex-column">
+                <div class="row addtask-container mx-0 d-flex align-items-center justify-content-center">
+                    <form class="d-flex w-5 add-container justify-content-center " autocomplete="off">
+                        <input class="addtask-box" id="test" type="text" placeholder="Add task..." value="" required/>
                         <div class="addtask-buttons ml-3">
-                            <input id="buttonAdd" type="submit" value="Add" />
-                            <!-- <input type="button" value="Clear" /> -->
+                            <input id="buttonAdd" class="btn btn-primary" type="submit" value="Add" />
+                            <!-- <section title=".newCheckbox">
+                                .newCheckbox
+                                <div class="newCheckbox">  
+                                  <input type="checkbox" value="None" id="newCheckbox" name="task" checked />
+                                  <label for="newCheckbox"></label>
+                                </div>
+                                end .newCheckbox
+                            </section>
+                            <input type="button" value="Clear" /> -->
                         </div>
                     </form>
                 </div>
                 
-                <div class="row tasks-box mx-0 mt-5" id="tasks">
+                <div class="row tasks-box mx-auto mt-5" id="tasks">
                        
                 </div>
             </div>

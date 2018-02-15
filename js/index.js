@@ -29,16 +29,25 @@ class Task {
         this.title = title;
         this.state = state;
     }
+
+    checked() {
+        return this.state ? 'checked' : '';
+    }
+
     render() {
-        const checkbox = $(`<input class="task-check-box" type="checkbox" name="task" id="${this.id}">`);
-        const removeButton = $('<button>&#10060;</button>');
-        checkbox.prop('checked', this.state);
-        
-        return $(`<div class="test flex justify-content-start"></div>`).html([
-            checkbox.click(() => {
+        const checkbox = $(`<input class="task-check-box" type="checkbox" name="check" id="${this.id}">`);
+        const newcheckbox = $(`<section title=".newCheckbox"><section>`).html(() => {
+            return $(`<div class="newCheckbox"> </div>`)
+        .html(`<input type="checkbox" value="None" id="newCheckbox-${this.id}" name="check" ${this.checked()}/><label for="newCheckbox-${this.id}"></label>`);
+        });
+        const removeButton = $('<button class="btn btn-danger">&#10060;</button>');
+
+        return $(`<div class="test flex justify-content-between"></div>`).html([
+            newcheckbox.click(() => {
                 eventsHandler.dispatch('changeTask', this);
+                console.log(this);
             }),
-            this.title,
+            `<p>${this.title}</p>`,
             removeButton.click(() => {
                 eventsHandler.dispatch('deleteTask', this.id);
             })
@@ -52,8 +61,6 @@ var tasks_array = JSON.parse(localStorage.getItem('task') || null) || [];
 tasks_array = tasks_array.map(function(val) {
     return  new Task(val.title, val.state, val.id)
 });
-// var id = 0;
-// var n = 0;
 
 eventsHandler.subscribe('updateUI', function updateUI() {
     if (typeof(localStorage) !== "undefined") {  
@@ -61,42 +68,18 @@ eventsHandler.subscribe('updateUI', function updateUI() {
             return val.render();
         });
         $("#tasks").html(x);
-        $("#test").val("");
     } else {
         document.getElementById("tasks").innerHTML = "Sorry, your browser does not support Web Storage...";
     }
+    $("#test").val("");
 });
 
-eventsHandler.subscribe('addTask', function addTask (title) {
+eventsHandler.subscribe('addTask', function addTask (title, e) {
     if (title.length > 0) {
-
-        var task_test = new Task(title); // {id: 0, content: "", state: null };
-        // console.log(taskvalue);
-        // localStorage.removeItem('id_max', n);
-        // localStorage.setItem('id_max', n);
         
-        // p = document.createElement("p");
-        // p.innerHTML = taskvalue + "<br />";
-        // p = '<p class="test col-10">'+taskvalue+'</p>';
-        // let n = (localStorage.getItem('id_max') || 0) + 1;
-        
-        
-        
-        
-        // document.getElementById('tasks').appendChild(p);
-        //// task_test.id = (parseInt(localStorage.getItem('id_max'), 10) || 0) + 1;
-        //// input = '<label class="test flex justify-content-start">' 
-        //// + '<input class="task-check-box" type="checkbox" name="task" id='+ task_test.id.toString() 
-        //// + 'onclick="eventsHandler.dispatch(\'changeTask\', { id: task_test.id });"> ' + taskvalue + '<button onclick="deleteTask('+ task_test.id +');"> X </button>' +'</label>';
-        //// task_test.content = input;
-        // n+=1;
+        var task_test = new Task(title);
         tasks_array.push(task_test);
-        //// localStorage.setItem('id_max', task_test.id);
-        // $(document).ready(function() {
-            //     $(".tasks-box").append();
-            // });
-            
-            
+
         if (typeof(localStorage) !== "undefined") {
             localStorage.setItem("task", JSON.stringify(tasks_array));
             // document.getElementById("tasks").innerHTML = JSON.parse(localStorage.getItem("task"));
@@ -104,8 +87,12 @@ eventsHandler.subscribe('addTask', function addTask (title) {
         } else {
             document.getElementById("tasks").innerHTML = "Sorry, your browser does not support Web Storage...";
         }
+        e.preventDefault();
         
         eventsHandler.dispatch('updateUI');
+        
+    }else {
+
     }
 });
 
@@ -113,12 +100,9 @@ eventsHandler.subscribe('deleteTask', function deleteTask(id) {
     tasks_array = tasks_array.filter(function(val){
         return val.id !== id;
     });
-    // localStorage.removeItem("task", JSON.stringify(tasks_array));
-    // localStorage.setItem("task", JSON.stringify(tasks_array));
     
     eventsHandler.dispatch('updateLocalStorage');
     eventsHandler.dispatch('updateUI');
-    // console.log(this);
 });
 
 eventsHandler.subscribe('changeTask', function changeTaskState(task) {
@@ -136,8 +120,9 @@ eventsHandler.subscribe('updateLocalStorage', function updateLocalStorage() {
 });
 
 document.getElementById('buttonAdd').onclick = function(e) {
-    e.preventDefault();
+
     eventsHandler.dispatch('addTask', document.getElementById('test').value);
+    
 }
 
 eventsHandler.dispatch('updateUI');
