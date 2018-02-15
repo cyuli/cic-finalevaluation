@@ -30,8 +30,8 @@
     outline: none;
 }
 
-.addtask-buttons {
-
+.add-container {
+    min-width: 75%;
 }
 
 .test {

@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <script src="js/index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>ToDo List</title>
 </head>
@@ -22,35 +21,23 @@
         <div class="wrapper mx-auto mt-3">
             <div class="box-content p-4">
                 <div class="row addtask-container mx-0 d-flex align-items-center justify-content-around">
-                    <input class="addtask-box" id="test" type="text" placeholder="Add task..." value="" />
-                    <div class="addtask-buttons ml-3">
-                        <input type="submit" onclick="addTask();" value="Add" />
-                        <input type="button" value="Clear" />
-                    </div>
+                    <form class="d-flex w-5 add-container">
+                        <input class="addtask-box" id="test" type="text" placeholder="Add task..." value="" />
+                        <div class="addtask-buttons ml-3">
+                            <input id="buttonAdd" type="submit" value="Add" />
+                            <!-- <input type="button" value="Clear" /> -->
+                        </div>
+                    </form>
                 </div>
+                
                 <div class="row tasks-box mx-0 mt-5" id="tasks">
-                        <script>
-                            if (typeof(Storage) !== "undefined") {
-                                console.log(tasks_array);
-                                // document.getElementById("tasks").innerHTML = JSON.parse(localStorage.getItem("task"));
-                                if(JSON.parse(localStorage.getItem("task")) !== null){
-                                    tasks_array = JSON.parse(localStorage.getItem("task"));
-                                    if(tasks_array.length > 0 ){
-                                        tasks_array.forEach(element => {
-                                            $("#tasks").append(element);
-                                        });
-                                    }
-                                }
-                                
-                            } else {
-                                document.getElementById("tasks").innerHTML = "Sorry, your browser does not support Web Storage...";
-                            }                             
-                        </script>
+                       
                 </div>
             </div>
         </div>
 
     </div>
+    <script src="js/index.js"></script>
     
 </body>
 </html>
